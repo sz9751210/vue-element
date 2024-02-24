@@ -1,8 +1,8 @@
 <template>
   <div class="common-layout">
-    <el-container>
+    <el-container class="l-container">
       <CommonAside />
-      <el-container>
+      <el-container class="r-container">
         <!-- <el-header>Header</el-header> -->
         <CommonHeader />
         <el-main>
@@ -14,6 +14,12 @@
 </template>
 
 <script setup>
-import CommonHeader from '../components/CommonHeader.vue';
-import CommonAside from '../components/CommonAside.vue';
+import CommonHeader from "../components/CommonHeader.vue";
+import CommonAside from "../components/CommonAside.vue";
 </script>
+
+<style lang="less" scoped>
+.r-container {
+  flex-wrap: wrap;
+}
+</style>
