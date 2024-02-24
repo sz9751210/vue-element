@@ -1,7 +1,7 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
+      <CommonAside />
       <el-container>
         <!-- <el-header>Header</el-header> -->
         <CommonHeader />
@@ -15,4 +15,5 @@
 
 <script setup>
 import CommonHeader from '../components/CommonHeader.vue';
+import CommonAside from '../components/CommonAside.vue';
 </script>
