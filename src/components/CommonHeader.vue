@@ -28,6 +28,11 @@
 
 <script setup>
 import user from "../assets/images/user.png";
+import { useStore } from "vuex";
+const store = useStore();
+const handleCollapse = () => {
+  store.commit("changeCollapse");
+};
 </script>
 
 <style lang="less" scoped>
