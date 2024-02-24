@@ -3,7 +3,8 @@
     <el-container>
       <el-aside width="200px">Aside</el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <!-- <el-header>Header</el-header> -->
+        <CommonHeader />
         <el-main>
           <router-view />
         </el-main>
@@ -11,3 +12,7 @@
     </el-container>
   </div>
 </template>
+
+<script setup>
+import CommonHeader from '../components/CommonHeader.vue';
+</script>
