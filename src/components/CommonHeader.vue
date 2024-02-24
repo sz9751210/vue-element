@@ -8,6 +8,7 @@
           <Menu />
         </el-icon>
       </el-button>
+      <h3>首頁</h3>
     </div>
     <div class="r-content">
       <el-dropdown>
@@ -26,7 +27,7 @@
 </template>
 
 <script setup>
-import user from "../assets/user.png";
+import user from "../assets/images/user.png";
 </script>
 
 <style lang="less" scoped>
@@ -35,12 +36,21 @@ header {
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  background: #333;
 }
 .r-content {
   .user {
     width: 60px;
     height: 40px;
     border-radius: 50%;
+  }
+}
+.l-content {
+  display: flex;
+  align-items: center;
+  h3 {
+    margin-left: 20px;
+    color: #fff;
   }
 }
 </style>

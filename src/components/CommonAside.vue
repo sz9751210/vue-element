@@ -86,4 +86,7 @@ const hasChildren = () => {
   height: 20px;
   padding: 5px;
 }
+.el-menu{
+    border-right: none;
+}
 </style>

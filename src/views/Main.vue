@@ -21,5 +21,15 @@ import CommonAside from "../components/CommonAside.vue";
 <style lang="less" scoped>
 .r-container {
   flex-wrap: wrap;
+  align-items: baseline;
+}
+.common-layout {
+  height: 100%;
+  & > .el-container {
+    height: 100%;
+    & > .el-aside {
+      height: 100%;
+    }
+  }
 }
 </style>
