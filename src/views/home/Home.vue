@@ -14,6 +14,16 @@
           <p>上次登錄地點:<span>台中</span></p>
         </div>
       </el-card>
+      <el-card shadow="hover" style="margin-top: 20px" height="450px">
+        <el-table :data="tableData">
+          <el-table-column
+            v-for="(val, key) in tableLabel"
+            :key="key"
+            :prop="key"
+            :label="val"
+          ></el-table-column>
+        </el-table>
+      </el-card>
     </el-col>
     <el-col :span="16" style="margin-top: 20px">
       <el-card shadow="hover"> </el-card>
@@ -21,8 +31,52 @@
   </el-row>
 </template>
 
-<script>
-export default {};
+<script setup>
+const tableData = [
+  {
+    name: "oppo",
+    todayBuy: 500,
+    monthBuy: 3500,
+    totalBuy: 22000,
+  },
+  {
+    name: "vivo",
+    todayBuy: 300,
+    monthBuy: 2200,
+    totalBuy: 24000,
+  },
+  {
+    name: "苹果",
+    todayBuy: 800,
+    monthBuy: 4500,
+    totalBuy: 65000,
+  },
+  {
+    name: "小米",
+    todayBuy: 1200,
+    monthBuy: 6500,
+    totalBuy: 45000,
+  },
+  {
+    name: "三星",
+    todayBuy: 300,
+    monthBuy: 2000,
+    totalBuy: 34000,
+  },
+  {
+    name: "魅族",
+    todayBuy: 350,
+    monthBuy: 3000,
+    totalBuy: 22000,
+  },
+];
+
+const tableLabel = {
+  name: "品牌",
+  todayBuy: "今日銷量",
+  monthBuy: "本月銷量",
+  totalBuy: "總銷量",
+};
 </script>
 
 <style lang="less" scoped>
