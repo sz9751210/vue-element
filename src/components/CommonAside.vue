@@ -7,6 +7,7 @@
       :collapse="!$store.state.isCollapse"
       :collapse-transition="false"
     >
+      <h3>{{ $store.state.isCollapse ? "後台管理" : "後台" }}</h3>
       <el-menu-item
         :index="item.path"
         v-for="item in noChildren()"
@@ -83,11 +84,15 @@ const hasChildren = () => {
 
 <style lang="less" scoped>
 .icons {
-  width: 20px;
-  height: 20px;
-  padding: 5px;
+  width: 18px;
+  height: 18px;
 }
 .el-menu {
   border-right: none;
+  h3 {
+    line-height: 48px;
+    color: #fff;
+    text-align: center;
+  }
 }
 </style>

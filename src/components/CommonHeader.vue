@@ -31,7 +31,7 @@ import user from "../assets/images/user.png";
 import { useStore } from "vuex";
 const store = useStore();
 const handleCollapse = () => {
-  store.commit("changeCollapse");
+  store.dispatch("changeCollapse");
 };
 </script>
 
