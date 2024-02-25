@@ -32,13 +32,13 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import axios from "axios";
+import { onMounted, ref, getCurrentInstance } from "vue";
 const tableData = ref([]);
-
+const { proxy } = getCurrentInstance();
 const getTableList = async () => {
-  const res = await axios.get("/home/getData");
-  tableData.value = res.data.data.tableData;
+  let res = await proxy.$api.getTableData();
+  console.log(res.tableData);
+  tableData.value = res.tableData;
 };
 onMounted(() => {
   getTableList();
