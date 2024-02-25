@@ -1,11 +1,10 @@
 <template>
   <div class="common-layout">
-    <el-container class="l-container">
+    <el-container class="lay-container">
       <CommonAside />
-      <el-container class="r-container">
-        <!-- <el-header>Header</el-header> -->
+      <el-container>
         <CommonHeader />
-        <el-main>
+        <el-main class="right-main">
           <router-view />
         </el-main>
       </el-container>
@@ -19,16 +18,24 @@ import CommonAside from "../components/CommonAside.vue";
 </script>
 
 <style lang="less" scoped>
-.r-container {
+.el-container {
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: flex-start;
+  height: 100%;
 }
 .common-layout {
   height: 100%;
+  .lay-container {
+    flex-wrap: nowrap;
+    .right-main {
+      height: 100%;
+    }
+  }
   & > .el-container {
     height: 100%;
     & > .el-aside {
       height: 100%;
+      background: #545c64;
     }
   }
 }
