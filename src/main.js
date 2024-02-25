@@ -5,6 +5,7 @@ import router from "./router";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import "./assets/less/index.less";
 import store from "./store/index.js";
+import "./api/mock.js";
 // import ElementPlus from "element-plus";
 // import "element-plus/dist/index.css";
 const app = createApp(App);
