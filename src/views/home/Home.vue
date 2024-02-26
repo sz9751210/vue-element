@@ -26,7 +26,24 @@
       </el-card>
     </el-col>
     <el-col :span="16" style="margin-top: 20px">
-      <el-card shadow="hover"> </el-card>
+      <div class="num">
+        <el-card
+          :body-style="{ padding: '0px', display: 'flex' }"
+          shadow="hover"
+          v-for="item in countData"
+          :key="item.name"
+        >
+          <component
+            class="icons"
+            :is="item.icon"
+            :style="{ background: item.color }"
+          ></component>
+          <div class="details">
+            <p class="price">${{ item.value }}</p>
+            <p class="desc">{{ item.name }}</p>
+          </div>
+        </el-card>
+      </div>
     </el-col>
   </el-row>
 </template>
@@ -34,14 +51,22 @@
 <script setup>
 import { onMounted, ref, getCurrentInstance } from "vue";
 const tableData = ref([]);
+const countData = ref([]);
 const { proxy } = getCurrentInstance();
 const getTableList = async () => {
   let res = await proxy.$api.getTableData();
   console.log(res.tableData);
   tableData.value = res.tableData;
 };
+
+const getCountList = async () => {
+  let res = await proxy.$api.getCountData();
+  console.log(res.countData);
+  countData.value = res.countData;
+};
 onMounted(() => {
   getTableList();
+  getCountList();
 });
 const tableLabel = {
   name: "品牌",
@@ -87,5 +112,42 @@ const tableLabel = {
       }
     }
   }
+  .num {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .el-card{
+      width: 30%;
+      // padding-bottom: 30px;
+      margin-bottom: 20px;
+    }
+    .icons{
+      width: 40px;
+      height: 40px;
+      padding: 10px;
+      color: #fff;
+      // line-height: 80px;
+      // text-align: center;
+      // size: 30px;
+      // font-size: 30px;
+    }
+    .details{
+      margin-left: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .price{
+        font-size: 25px;
+        margin-bottom: 10px;
+      }
+      .desc{
+        font-size: 14px;
+        // text-align: center;
+        color: #999;
+      }
+    }
+
+  }
+  
 }
 </style>
