@@ -8,7 +8,9 @@
           <Menu />
         </el-icon>
       </el-button>
-      <h3>首頁</h3>
+      <el-breadcrumb separator="/" class="bread">
+        <el-breadcrumb-item :to="{ path: '/' }">首頁</el-breadcrumb-item>
+      </el-breadcrumb>
     </div>
     <div class="r-content">
       <el-dropdown>
@@ -59,5 +61,11 @@ header {
     margin-left: 20px;
     color: #fff;
   }
+}
+
+:deep(.bread span) {
+  margin-left: 5px;
+  color: #fff !important;
+  cursor: pointer !important;
 }
 </style>
