@@ -28,10 +28,12 @@
 
 <script setup>
 import user from "../assets/images/user.png";
-import { useStore } from "vuex";
-const store = useStore();
+import { useCollapseStore } from "../store/index";
+const store = useCollapseStore();
+// import { useStore } from "vuex";
+// const store = useStore();
 const handleCollapse = () => {
-  store.dispatch("changeCollapse");
+  store.changeCollapse();
 };
 </script>
 

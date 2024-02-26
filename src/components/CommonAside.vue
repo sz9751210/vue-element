@@ -1,13 +1,13 @@
 <template>
-  <el-aside :width="$store.state.isCollapse ? '180px' : '64px'">
+  <el-aside :width="asideWidth">
     <el-menu
       class="el-menu-vertical-demo"
       background-color="#545c64"
       text-color="#fff"
-      :collapse="!$store.state.isCollapse"
+      :collapse="isCollapse"
       :collapse-transition="false"
     >
-      <h3>{{ $store.state.isCollapse ? "後台管理" : "後台" }}</h3>
+      <h3>{{ isCollapse ? "後台" : "後台管理" }}</h3>
       <el-menu-item
         :index="item.path"
         v-for="item in noChildren()"
@@ -44,6 +44,11 @@
 
 <script setup>
 import { useRouter } from "vue-router";
+import { useCollapseStore } from "../store/index";
+import { computed } from "vue";
+const store = useCollapseStore();
+const isCollapse = computed(() => store.isCollapse);
+const asideWidth = computed(() => (store.isCollapse ? "64px" : "180px"));
 const router = useRouter();
 const list = [
   {
