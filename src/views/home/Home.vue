@@ -64,6 +64,7 @@ import { onMounted, ref, getCurrentInstance, reactive } from "vue";
 const tableData = ref([]);
 const countData = ref([]);
 import * as echarts from "echarts";
+
 const { proxy } = getCurrentInstance();
 const getTableList = async () => {
   let res = await proxy.$api.getTableData();

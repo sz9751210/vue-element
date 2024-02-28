@@ -9,7 +9,11 @@
         </el-icon>
       </el-button>
       <el-breadcrumb separator="/" class="bread">
+        <!-- 首頁是一定存在的所以直接寫死 -->
         <el-breadcrumb-item :to="{ path: '/' }">首頁</el-breadcrumb-item>
+        <el-breadcrumb-item :to="current.path" v-if="current">{{
+          current.label
+        }}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="r-content">
@@ -29,14 +33,22 @@
 </template>
 
 <script setup>
+import { computed, onBeforeUnmount } from "vue";
 import user from "../assets/images/user.png";
-import { useCollapseStore } from "../store/index";
-const store = useCollapseStore();
+import { useStore } from "../store/index";
+const store = useStore();
 // import { useStore } from "vuex";
 // const store = useStore();
 const handleCollapse = () => {
   store.changeCollapse();
 };
+onBeforeUnmount(() => {
+  store.currentMenu = null; // 假设 store 是响应式状态管理库实例
+});
+const current = computed(() => {
+  console.log("current menu", store.currentMenu);
+  return store.currentMenu;
+});
 </script>
 
 <style lang="less" scoped>

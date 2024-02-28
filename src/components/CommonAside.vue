@@ -44,9 +44,9 @@
 
 <script setup>
 import { useRouter } from "vue-router";
-import { useCollapseStore } from "../store/index";
+import { useStore } from "../store/index";
 import { computed } from "vue";
-const store = useCollapseStore();
+const store = useStore();
 const isCollapse = computed(() => store.isCollapse);
 const asideWidth = computed(() => (store.isCollapse ? "64px" : "180px"));
 const router = useRouter();
@@ -94,6 +94,8 @@ const clickMenu = (item) => {
   router.push({
     name: item.name,
   });
+  // pinia管理麵包屑
+  store.selectMenu(item);
 };
 </script>
 
