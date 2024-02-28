@@ -5,13 +5,27 @@ export const useStore = defineStore("store", {
   state: () => ({
     isCollapse: true,
     currentMenu: null,
+    tabsList: [
+      {
+        path: "/",
+        name: "home",
+        label: "首頁",
+        icon: "home",
+      },
+    ],
   }),
   actions: {
     changeCollapse() {
       this.isCollapse = !this.isCollapse;
     },
     selectMenu(val) {
-      val.name == "home" ? (this.currentMenu = null) : (this.currentMenu = val);
+      if (val.name == "home") {
+        this.currentMenu = null;
+      } else {
+        this.currentMenu = val;
+        let result = this.tabsList.findIndex((item) => item.name == val.name);
+        result == -1 ? this.tabsList.push(val) : "";
+      }
     },
   },
 });
