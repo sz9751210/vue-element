@@ -27,6 +27,10 @@ export const useStore = defineStore("store", {
         result == -1 ? this.tabsList.push(val) : "";
       }
     },
+    closeTab(val) {
+      let result = this.tabsList.findIndex((item) => item.name == val.name);
+      result != -1 && this.tabsList.splice(result, 1);
+    },
   },
 });
 
