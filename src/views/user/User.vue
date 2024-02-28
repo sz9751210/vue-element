@@ -43,7 +43,7 @@ const config = reactive({
 });
 const getUserData = async (config) => {
   console.log(config)
-  let res = await proxy.$api.getUserData();
+  let res = await proxy.$api.getUserData(config);
   config.total= res.count
   // console.log(res.list);
   list.value = res.list.map((item) => {
@@ -54,6 +54,8 @@ const getUserData = async (config) => {
 };
 const changePage = (page) => {
   // console.log(page);
+  config.page=page
+  getUserData(config);
 }
 onMounted(() => {
   getUserData(config);

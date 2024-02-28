@@ -34,7 +34,7 @@ export default {
       url: "/user/getUserData",
       method: "get",
       data: params,
-      mock: true,
+      mock: false,
     });
   },
 };
