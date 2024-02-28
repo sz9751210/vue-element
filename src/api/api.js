@@ -31,7 +31,7 @@ export default {
   },
   getUserData(params) {
     return request({
-      url: "/home/getUserData",
+      url: "/user/getUserData",
       method: "get",
       data: params,
       mock: true,

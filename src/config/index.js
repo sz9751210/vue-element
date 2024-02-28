@@ -6,7 +6,7 @@ const env = import.meta.env.MODE || "prod";
 const EnvConfig = {
   development: {
     baseApi: "/api",
-    mockApi: "http://localhost:5173/mock",
+    mockApi: "/mock",
   },
   test: {
     baseApi: "/api",
