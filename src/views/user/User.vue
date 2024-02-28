@@ -21,7 +21,7 @@
       layout="prev, pager, next"
       :total="config.total"
       @current-change="changePage"
-      class="mt-4"
+      class="pager mt-4"
     />
   </div>
 </template>
@@ -62,4 +62,14 @@ onMounted(() => {
 });
 </script>
 
-<style></style>
+<style lang="less" scoped>
+.table {
+  position: relative;
+  height: 520px;
+  .pager {
+    position: absolute;
+    right: 0;
+    bottom: -20px;
+  }
+}
+</style>
