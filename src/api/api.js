@@ -29,5 +29,12 @@ export default {
       mock: true,
     });
   },
-
+  getUserData(params) {
+    return request({
+      url: "/home/getUserData",
+      method: "get",
+      data: params,
+      mock: true,
+    });
+  },
 };

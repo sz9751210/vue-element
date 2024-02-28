@@ -16,10 +16,10 @@ service.interceptors.request.use((req) => {
 
 // [4] 响应拦截器：请求成功后，响应返回前执行
 service.interceptors.response.use((res) => {
-  // console.log(res)
+  console.log(res)
   // [4.1] 检查响应的 code，决定是直接返回数据还是显示错误并拒绝 Promise
   const { code, data, msg } = res.data;
-  // console.log("data", res);
+  console.log("data", res);
   if (code === 200) {
     return data;
   } else {
