@@ -15,6 +15,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      small
+      background
+      layout="prev, pager, next"
+      :total="config.total"
+      @current-change="changePage"
+      class="mt-4"
+    />
   </div>
 </template>
 
@@ -29,17 +37,26 @@ const tableLabel = reactive([
   { prop: "birth", label: "出生日期", width: 200 },
   { prop: "addr", label: "地址", width: 320 },
 ]);
-const getUserData = async () => {
+const config = reactive({
+  total: 0,
+  page: 1,
+});
+const getUserData = async (config) => {
+  console.log(config)
   let res = await proxy.$api.getUserData();
-  console.log(res.list);
+  config.total= res.count
+  // console.log(res.list);
   list.value = res.list.map((item) => {
     item.sexLabel = item.sex === 0 ? "女" : "男";
     return item;
   });
   return res;
 };
+const changePage = (page) => {
+  // console.log(page);
+}
 onMounted(() => {
-  getUserData();
+  getUserData(config);
 });
 </script>
 
