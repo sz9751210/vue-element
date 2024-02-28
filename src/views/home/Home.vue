@@ -44,14 +44,26 @@
           </div>
         </el-card>
       </div>
+      <el-card style="height: 280px">
+        <div ref="echart" style="height: 280px"></div>
+      </el-card>
+      <div class="graph">
+        <el-card style="height: 260px">
+          <div ref="userechart" style="height: 240px"></div>
+        </el-card>
+        <el-card style="height: 260px">
+          <div ref="videoechart" style="height: 240px"></div>
+        </el-card>
+      </div>
     </el-col>
   </el-row>
 </template>
 
 <script setup>
-import { onMounted, ref, getCurrentInstance } from "vue";
+import { onMounted, ref, getCurrentInstance, reactive } from "vue";
 const tableData = ref([]);
 const countData = ref([]);
+import * as echarts from "echarts";
 const { proxy } = getCurrentInstance();
 const getTableList = async () => {
   let res = await proxy.$api.getTableData();
@@ -67,7 +79,133 @@ const getCountList = async () => {
 onMounted(() => {
   getTableList();
   getCountList();
+  getChartData();
 });
+// 關於echarts 表格的渲染部分
+let xOptions = reactive({
+  // 图例文字颜色
+  textStyle: {
+    color: "#333",
+  },
+  grid: {
+    left: "20%",
+  },
+  // 提示框
+  tooltip: {
+    trigger: "axis",
+  },
+  xAxis: {
+    type: "category", // 类目轴
+    data: [],
+    axisLine: {
+      lineStyle: {
+        color: "#17b3a3",
+      },
+    },
+    axisLabel: {
+      interval: 0,
+      color: "#333",
+    },
+  },
+  yAxis: [
+    {
+      type: "value",
+      axisLine: {
+        lineStyle: {
+          color: "#17b3a3",
+        },
+      },
+    },
+  ],
+  color: ["#2ec7c9", "#b6a2de", "#5ab1ef", "#ffb980", "#d87a80", "#8d98b3"],
+  series: [],
+});
+let pieOptions = reactive(
+  // 饼状图的配置
+  {
+    tooltip: {
+      trigger: "item",
+    },
+    color: [
+      "#0f78f4",
+      "#dd536b",
+      "#9462e5",
+      "#a6a6a6",
+      "#e1bb22",
+      "#39c362",
+      "#3ed1cf",
+    ],
+    series: [],
+  }
+);
+let orderData = reactive({
+  xData: [],
+  series: [],
+});
+
+let userData = reactive({
+  xData: [],
+  series: [],
+});
+let videoData = reactive({
+  series: [],
+});
+
+const getChartData = async () => {
+  let result = await proxy.$api.getChartData();
+  console.log("result", result);
+  let res = result.orderData;
+  let userRes = result.userData;
+  let videoRes = result.videoData;
+  orderData.xData = res.date;
+  const orderKeys = Object.keys(res.data[0]);
+  console.log("key", orderKeys);
+  const series = [];
+  orderKeys.forEach((key) => {
+    series.push({
+      name: key,
+      data: res.data.map((item) => item[key]),
+      type: "line",
+    });
+  });
+  // console.log("series", series);
+  orderData.series = series;
+  xOptions.xAxis.data = orderData.xData;
+  xOptions.series = orderData.series;
+  // userData进行渲染
+  let hEcharts = echarts.init(proxy.$refs["echart"]);
+  hEcharts.setOption(xOptions);
+
+  // 柱状图进行渲染的过程
+  userData.xData = userRes.map((item) => item.date);
+  userData.series = [
+    {
+      name: "新增用户",
+      data: userRes.map((item) => item.new),
+      type: "bar",
+    },
+    {
+      name: "活跃用户",
+      data: userRes.map((item) => item.active),
+      type: "bar",
+    },
+  ];
+
+  xOptions.xAxis.data = userData.xData;
+  xOptions.series = userData.series;
+  let uEcharts = echarts.init(proxy.$refs["userechart"]);
+  uEcharts.setOption(xOptions);
+  videoData.series = [
+    {
+      data: videoRes,
+      type: "pie",
+    },
+  ];
+  pieOptions.series = videoData.series;
+  let vEcharts = echarts.init(proxy.$refs["videoechart"]);
+  vEcharts.setOption(pieOptions);
+};
+
 const tableLabel = {
   name: "品牌",
   todayBuy: "今日銷量",
@@ -116,12 +254,12 @@ const tableLabel = {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    .el-card{
+    .el-card {
       width: 30%;
       // padding-bottom: 30px;
       margin-bottom: 20px;
     }
-    .icons{
+    .icons {
       width: 40px;
       height: 40px;
       padding: 10px;
@@ -131,23 +269,29 @@ const tableLabel = {
       // size: 30px;
       // font-size: 30px;
     }
-    .details{
+    .details {
       margin-left: 15px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      .price{
+      .price {
         font-size: 25px;
         margin-bottom: 10px;
       }
-      .desc{
+      .desc {
         font-size: 14px;
         // text-align: center;
         color: #999;
       }
     }
-
   }
-  
+  .graph {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    .el-card{
+      width: 48%;
+    }
+  }
 }
 </style>

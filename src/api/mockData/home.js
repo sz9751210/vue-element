@@ -89,4 +89,133 @@ export default {
       },
     };
   },
+  getChartData: () => {
+    return {
+      code: 200,
+      data: {
+        orderData: {
+          date: [
+            "20191001",
+            "20191002",
+            "20191003",
+            "20191004",
+            "20191005",
+            "20191006",
+            "20191007",
+          ],
+          data: [
+            {
+              苹果: Math.floor(Math.random() * 5001),
+              小米: Math.floor(Math.random() * 5001),
+              华为: Math.floor(Math.random() * 5001),
+              oppo: Math.floor(Math.random() * 5001),
+              vivo: Math.floor(Math.random() * 5001),
+              一加: Math.floor(Math.random() * 5001),
+            },
+            {
+              苹果: Math.floor(Math.random() * 5001),
+              小米: Math.floor(Math.random() * 5001),
+              华为: Math.floor(Math.random() * 5001),
+              oppo: Math.floor(Math.random() * 5001),
+              vivo: Math.floor(Math.random() * 5001),
+              一加: Math.floor(Math.random() * 5001),
+            },
+            {
+              苹果: Math.floor(Math.random() * 5001),
+              小米: Math.floor(Math.random() * 5001),
+              华为: Math.floor(Math.random() * 5001),
+              oppo: Math.floor(Math.random() * 5001),
+              vivo: Math.floor(Math.random() * 5001),
+              一加: Math.floor(Math.random() * 5001),
+            },
+            {
+              苹果: Math.floor(Math.random() * 5001),
+              小米: Math.floor(Math.random() * 5001),
+              华为: Math.floor(Math.random() * 5001),
+              oppo: Math.floor(Math.random() * 5001),
+              vivo: Math.floor(Math.random() * 5001),
+              一加: Math.floor(Math.random() * 5001),
+            },
+            {
+              苹果: Math.floor(Math.random() * 5001),
+              小米: Math.floor(Math.random() * 5001),
+              华为: Math.floor(Math.random() * 5001),
+              oppo: Math.floor(Math.random() * 5001),
+              vivo: Math.floor(Math.random() * 5001),
+              一加: Math.floor(Math.random() * 5001),
+            },
+            {
+              苹果: Math.floor(Math.random() * 5001),
+              小米: Math.floor(Math.random() * 5001),
+              华为: Math.floor(Math.random() * 5001),
+              oppo: Math.floor(Math.random() * 5001),
+              vivo: Math.floor(Math.random() * 5001),
+              一加: Math.floor(Math.random() * 5001),
+            },
+            {
+              苹果: Math.floor(Math.random() * 5001),
+              小米: Math.floor(Math.random() * 5001),
+              华为: Math.floor(Math.random() * 5001),
+              oppo: Math.floor(Math.random() * 5001),
+              vivo: Math.floor(Math.random() * 5001),
+              一加: Math.floor(Math.random() * 5001),
+            },
+          ],
+        },
+        videoData: [
+          {
+            name: "小米",
+            value: 2999,
+          },
+          {
+            name: "苹果",
+            value: 5999,
+          },
+          {
+            name: "vivo",
+            value: 1500,
+          },
+          {
+            name: "oppo",
+            value: 1999,
+          },
+          {
+            name: "魅族",
+            value: 2200,
+          },
+          {
+            name: "三星",
+            value: 4500,
+          },
+        ],
+        userData: [
+          {
+            date: "周一",
+            new: 5,
+            active: 200,
+          },
+          {
+            date: "周二",
+            new: 10,
+            active: 500,
+          },
+          {
+            date: "周三",
+            new: 12,
+            active: 550,
+          },
+          {
+            date: "周四",
+            new: 60,
+            active: 800,
+          },
+          {
+            date: "周五",
+            new: 65,
+            active: 550,
+          },
+        ],
+      },
+    };
+  },
 };
