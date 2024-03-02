@@ -61,4 +61,12 @@ export default {
       mock: false,
     });
   },
+  getMenu(params) {
+    return request({
+      url: "/permission/getMenu",
+      method: "post",
+      data: params,
+      mock: false,
+    });
+  },
 };
