@@ -48,16 +48,27 @@
     <el-form :inline="true" :model="formUser" ref="userForm">
       <el-row>
         <el-col :span="12">
-          <el-form-item label="姓名" prop="name">
+          <el-form-item
+            label="姓名"
+            prop="name"
+            :rules="[{ required: true, message: '姓名是必填項' }]"
+          >
             <el-input
               v-model="formUser.name"
-              placeholder="請輸入姓名"
+              placeholder="姓名是必填項"
               clearable
             />
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="年齡" prop="age">
+          <el-form-item
+            label="年齡"
+            prop="age"
+            :rules="[
+              { required: true, message: '年齡是必填項' },
+              { type: 'number', message: '年齡必須為數字值' },
+            ]"
+          >
             <el-input
               v-model="formUser.age"
               placeholder="請輸入年齡"
@@ -69,7 +80,11 @@
 
       <el-row>
         <el-col :span="12">
-          <el-form-item label="性別" prop="sex">
+          <el-form-item
+            label="性別"
+            prop="sex"
+            :rules="[{ required: true, message: '性別是必選項' }]"
+          >
             <el-select
               v-model="formUser.sex"
               placeholder="請選擇"
@@ -81,7 +96,11 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="出生日期" prop="birth">
+          <el-form-item
+            label="出生日期"
+            prop="birth"
+            :rules="[{ required: true, message: '出生日期是必選項' }]"
+          >
             <el-date-picker
               v-model="formUser.birth"
               type="date"
@@ -93,7 +112,11 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-form-item label="地址" prop="addr">
+        <el-form-item
+          label="地址"
+          prop="addr"
+          :rules="[{ required: true, message: '地址是必填項' }]"
+        >
           <el-input
             v-model="formUser.addr"
             placeholder="請輸入地址"
@@ -103,7 +126,7 @@
       </el-row>
       <el-row style="justify-content: flex-end">
         <el-form-item>
-          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button @click="handleCancel">取消</el-button>
           <el-button type="primary" @click="onSubmit">確定</el-button>
         </el-form-item>
       </el-row>
@@ -156,6 +179,7 @@ const dialogVisible = ref(false);
 const handleClose = (done) => {
   ElMessageBox.confirm("確定關閉嗎?")
     .then(() => {
+      proxy.$refs.userForm.resetFields();
       done();
     })
     .catch(() => {
@@ -169,14 +193,23 @@ const formUser = reactive({
   birth: "",
   addr: "",
 });
-const onSubmit = async () => {
-  let res = await proxy.$api.addUser(formUser);
-  console.log(res);
-  if (res) {
-    dialogVisible.value = false;
-    proxy.$refs.userForm.resetFields();
-    getUserData(config);
-  }
+const onSubmit = () => {
+  proxy.$refs.userForm.validate(async (valid) => {
+    if (valid) {
+      let res = await proxy.$api.addUser(formUser);
+      console.log(res);
+      if (res) {
+        dialogVisible.value = false;
+        proxy.$refs.userForm.resetFields();
+        getUserData(config);
+      }
+    }
+  });
+};
+
+const handleCancel = () => {
+  dialogVisible.value = false;
+  proxy.$refs.userForm.resetFields();
 };
 
 onMounted(() => {
