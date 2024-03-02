@@ -28,7 +28,9 @@
           <el-button size="small" @click="handleEdit(scope.row)"
             >編輯</el-button
           >
-          <el-button type="danger" size="small">刪除</el-button>
+          <el-button type="danger" size="small" @click="handleDelete(scope.row)"
+            >刪除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -253,6 +255,22 @@ const handleEdit = (row) => {
 const handleAdd = () => {
   action.value = "add";
   dialogVisible.value = true;
+};
+
+const handleDelete = (row) => {
+  ElMessageBox.confirm("確定刪除嗎?")
+    .then(async () => {
+      await proxy.$api.deleteUser({
+        id: row.id,
+      });
+
+      ElMessage({
+        message: "刪除成功",
+        type: "success",
+      });
+      getUserData(config);
+    })
+    .catch(() => {});
 };
 
 onMounted(() => {

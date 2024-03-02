@@ -8,3 +8,4 @@ Mock.mock("/mock/home/getChartData", "get", homeApi.getChartData);
 Mock.mock(/user\/getUserData/, "get", userApi.getUserList);
 Mock.mock(/user\/addUser/, "post", userApi.createUser);
 Mock.mock(/user\/editUser/, "post", userApi.updateUser);
+Mock.mock(/user\/deleteUser/, "get", userApi.deleteUser);
