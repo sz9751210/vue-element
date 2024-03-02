@@ -45,4 +45,12 @@ export default {
       mock: false,
     });
   },
+  editUser(params) {
+    return request({
+      url: "/user/editUser",
+      method: "post",
+      data: params,
+      mock: false,
+    });
+  },
 };

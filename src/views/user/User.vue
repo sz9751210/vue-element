@@ -198,12 +198,24 @@ const formUser = reactive({
 const onSubmit = () => {
   proxy.$refs.userForm.validate(async (valid) => {
     if (valid) {
-      let res = await proxy.$api.addUser(formUser);
-      console.log(res);
-      if (res) {
-        dialogVisible.value = false;
-        proxy.$refs.userForm.resetFields();
-        getUserData(config);
+      if (action.value == "add") {
+        let res = await proxy.$api.addUser(formUser);
+        console.log(res);
+        if (res) {
+          dialogVisible.value = false;
+          proxy.$refs.userForm.resetFields();
+          getUserData(config);
+        }
+        // 修改時
+      } else {
+        formUser.sex == "男" ? (formUser.sex = 1) : (formUser.sex = 0);
+        let res = await proxy.$api.editUser(formUser);
+        console.log(res);
+        if (res) {
+          dialogVisible.value = false;
+          proxy.$refs.userForm.resetFields();
+          getUserData(config);
+        }
       }
     } else {
       ElMessage({
