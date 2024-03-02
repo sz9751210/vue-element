@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <el-table :data="list" style="width: 100%" height="600">
+  <div class="table">
+    <el-table :data="list" style="width: 100%" height="600px">
       <el-table-column
         v-for="item in tableLabel"
         :prop="item.prop"
@@ -10,8 +10,8 @@
       />
       <el-table-column fixed="right" label="操作" width="180">
         <template #default>
-          <el-button link type="primary" size="small">編輯</el-button>
-          <el-button link type="danger" size="small">刪除</el-button>
+          <el-button size="small">編輯</el-button>
+          <el-button type="danger" size="small">刪除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -42,9 +42,9 @@ const config = reactive({
   page: 1,
 });
 const getUserData = async (config) => {
-  console.log(config)
+  console.log(config);
   let res = await proxy.$api.getUserData(config);
-  config.total= res.count
+  config.total = res.count;
   // console.log(res.list);
   list.value = res.list.map((item) => {
     item.sexLabel = item.sex === 0 ? "女" : "男";
@@ -54,9 +54,9 @@ const getUserData = async (config) => {
 };
 const changePage = (page) => {
   // console.log(page);
-  config.page=page
+  config.page = page;
   getUserData(config);
-}
+};
 onMounted(() => {
   getUserData(config);
 });
@@ -69,7 +69,7 @@ onMounted(() => {
   .pager {
     position: absolute;
     right: 0;
-    bottom: -20px;
+    bottom: -120px;
   }
 }
 </style>
