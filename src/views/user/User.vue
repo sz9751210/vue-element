@@ -1,6 +1,6 @@
 <template>
   <div class="user-header">
-    <el-button type="primary" @click="dialogVisible = true">＋新增</el-button>
+    <el-button type="primary" @click="handleAdd">＋新增</el-button>
     <el-form :inline="true" :model="formInline">
       <el-form-item label="請輸入">
         <el-input
@@ -24,8 +24,10 @@
         :width="item.width ? item.width : 125"
       />
       <el-table-column fixed="right" label="操作" width="180">
-        <template #default>
-          <el-button size="small">編輯</el-button>
+        <template #default="scope">
+          <el-button size="small" @click="handleEdit(scope.row)"
+            >編輯</el-button
+          >
           <el-button type="danger" size="small">刪除</el-button>
         </template>
       </el-table-column>
@@ -41,7 +43,7 @@
   </div>
   <el-dialog
     v-model="dialogVisible"
-    title="新增用戶"
+    :title="action == 'add' ? '新增用戶' : '編輯用戶'"
     width="45%"
     :before-close="handleClose"
   >
@@ -203,13 +205,42 @@ const onSubmit = () => {
         proxy.$refs.userForm.resetFields();
         getUserData(config);
       }
+    } else {
+      ElMessage({
+        // showClose:true,
+        type: "error",
+        message: "請檢查輸入是否正確",
+      });
     }
   });
 };
 
+const action = ref("add");
+
 const handleCancel = () => {
   dialogVisible.value = false;
   proxy.$refs.userForm.resetFields();
+};
+
+const handleEdit = (row) => {
+  action.value = "edit";
+  dialogVisible.value = true;
+  console.log(row);
+  row.sex == 1 ? (row.sex = "男") : (row.sex = "女");
+  proxy.$nextTick(() => {
+    Object.assign(formUser, row);
+  });
+  // formUser.name = row.name;
+  // formUser.age = row.age;
+  // formUser.sex = row.sex;
+  // formUser.birth = row.birth;
+  // formUser.addr = row.addr;
+  // dialogVisible.value = true;
+};
+
+const handleAdd = () => {
+  action.value = "add";
+  dialogVisible.value = true;
 };
 
 onMounted(() => {
