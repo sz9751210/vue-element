@@ -81,13 +81,15 @@ const list = [
   },
 ];
 
+const asyncList = store.menu
+
 // 是否有二級菜單
 const noChildren = () => {
-  return list.filter((item) => !item.children);
+  return asyncList.filter((item) => !item.children);
 };
 
 const hasChildren = () => {
-  return list.filter((item) => item.children);
+  return asyncList.filter((item) => item.children);
 };
 
 const clickMenu = (item) => {

@@ -22,8 +22,11 @@
 </template>
 <script setup>
 import { reactive, getCurrentInstance } from "vue";
-
+import { useStore } from "../../store";
+import { useRouter } from "vue-router";
 const { proxy } = getCurrentInstance();
+const store = useStore();
+const router = useRouter();
 const loginForm = reactive({
   username: "admin",
   password: "admin",
@@ -32,6 +35,10 @@ const loginForm = reactive({
 const handleLogin = async () => {
   const res = await proxy.$api.getMenu(loginForm);
   console.log(res);
+  store.setMenu(res.menu);
+  router.push({
+    name: "home"
+  })
 };
 </script>
 

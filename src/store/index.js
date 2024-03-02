@@ -13,6 +13,7 @@ export const useStore = defineStore("store", {
         icon: "home",
       },
     ],
+    menu: [],
   }),
   actions: {
     changeCollapse() {
@@ -31,6 +32,10 @@ export const useStore = defineStore("store", {
       let result = this.tabsList.findIndex((item) => item.name == val.name);
       result != -1 && this.tabsList.splice(result, 1);
     },
+    setMenu(val){
+      this.menu = val
+      localStorage.setItem('menu',JSON.stringify(val))
+    }
   },
 });
 
