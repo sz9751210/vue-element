@@ -24,7 +24,7 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>個人中心</el-dropdown-item>
-            <el-dropdown-item>退出</el-dropdown-item>
+            <el-dropdown-item @click="handleLogout">退出</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -36,6 +36,7 @@
 import { computed, onBeforeUnmount } from "vue";
 import user from "../assets/images/user.png";
 import { useStore } from "../store/index";
+import { useRouter } from "vue-router";
 const store = useStore();
 // import { useStore } from "vuex";
 // const store = useStore();
@@ -49,6 +50,14 @@ const current = computed(() => {
   console.log("current menu", store.currentMenu);
   return store.currentMenu;
 });
+const router = useRouter();
+const handleLogout = () => {
+  store.clearMenu();
+  router.push({
+    name: "login",
+    
+  });
+};
 </script>
 
 <style lang="less" scoped>

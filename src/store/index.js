@@ -61,6 +61,10 @@ export const useStore = defineStore("store", {
       });
       console.log("menuArray", menuArray);
     },
+    clearMenu() {
+      this.menu = [];
+      localStorage.removeItem("menu");
+    },
   },
 });
 
