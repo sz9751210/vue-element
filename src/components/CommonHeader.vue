@@ -53,9 +53,10 @@ const current = computed(() => {
 const router = useRouter();
 const handleLogout = () => {
   store.clearMenu();
+  store.clearToken();
   router.push({
     name: "login",
-    
+
   });
 };
 </script>

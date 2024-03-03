@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 import { defineStore } from "pinia";
-
+import Cookie from "js-cookie";
 export const useStore = defineStore("store", {
   state: () => ({
     isCollapse: true,
@@ -14,6 +14,7 @@ export const useStore = defineStore("store", {
       },
     ],
     menu: [],
+    token: "",
   }),
   actions: {
     changeCollapse() {
@@ -64,6 +65,17 @@ export const useStore = defineStore("store", {
     clearMenu() {
       this.menu = [];
       localStorage.removeItem("menu");
+    },
+    setToken(val) {
+      this.token = val;
+      Cookie.set("token", val);
+    },
+    clearToken() {
+      this.token = "";
+      Cookie.remove("token");
+    },
+    getToken() {
+      return this.token || Cookie.get("token");
     },
   },
 });

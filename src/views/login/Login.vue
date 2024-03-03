@@ -37,6 +37,7 @@ const handleLogin = async () => {
   console.log(res);
   store.setMenu(res.menu);
   store.addMenu(router);
+  store.setToken(res.token);
   router.push({
     name: "home"
   })

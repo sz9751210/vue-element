@@ -18,9 +18,31 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 // 在 Vue 应用的全局属性中注册一个 $api 对象，使得在任何组件内部都可以通过 this.$api 访问到 api 对象。
 app.config.globalProperties.$api = api;
-app.use(pinia)
+app.use(pinia);
 app.use(router);
 const store = useStore();
+
+function checkRouter(path) {
+  let hasCheck = router
+    .getRoutes()
+    .filter((route) => route.path == path).length;
+  console.log("hasCheck", hasCheck);
+  return hasCheck ? true : false;
+}
+// checkRouter()
 store.addMenu(router);
+
+router.beforeEach((to, from, next) => {
+  store.getToken();
+  const token = store.token;
+  if (!token && to.path !== "/login") {
+    next({ path: "/login" });
+  } else if (!checkRouter(to.path)) {
+    next({ name: "home" });
+  } else {
+    next();
+  }
+});
+
 // app.use(ElementPlus);
 app.mount("#app");
