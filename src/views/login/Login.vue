@@ -36,6 +36,7 @@ const handleLogin = async () => {
   const res = await proxy.$api.getMenu(loginForm);
   console.log(res);
   store.setMenu(res.menu);
+  store.addMenu(router);
   router.push({
     name: "home"
   })

@@ -28,7 +28,7 @@ export default {
               name: "user",
               label: "用户管理",
               icon: "user",
-              url: "User/User",
+              url: "user/User",
             },
             {
               label: "其他",

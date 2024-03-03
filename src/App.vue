@@ -1,7 +1,9 @@
 <script setup>
-import { useStore } from "./store";
-const store = useStore();
-store.addMenu();
+// import { useStore } from "./store";
+// import { useRouter } from "vue-router";
+// const store = useStore();
+// const router = useRouter();
+// store.addMenu(router);
 </script>
 
 <template>

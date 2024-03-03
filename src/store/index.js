@@ -32,15 +32,35 @@ export const useStore = defineStore("store", {
       let result = this.tabsList.findIndex((item) => item.name == val.name);
       result != -1 && this.tabsList.splice(result, 1);
     },
-    setMenu(val){
-      this.menu = val
-      localStorage.setItem('menu',JSON.stringify(val))
+    setMenu(val) {
+      this.menu = val;
+      localStorage.setItem("menu", JSON.stringify(val));
     },
-    addMenu(){
-      if(!localStorage.getItem('menu')) return
-      const menu = JSON.parse(localStorage.getItem('menu'))
-      this.menu = menu
-    }
+    addMenu(router) {
+      if (!localStorage.getItem("menu")) return;
+      const menu = JSON.parse(localStorage.getItem("menu"));
+      this.menu = menu;
+      console.log("menu", menu);
+      const menuArray = [];
+      menu.forEach((item) => {
+        if (item.children) {
+          item.children = item.children.map((item) => {
+            let url = `../views/${item.url}.vue`;
+            item.component = () => import(url);
+            return item;
+          });
+          menuArray.push(...item.children);
+        } else {
+          let url = `../views/${item.url}.vue`;
+          item.component = () => import(url);
+          menuArray.push(item);
+        }
+      });
+      menuArray.forEach((item) => {
+        router.addRoute("home1", item);
+      });
+      console.log("menuArray", menuArray);
+    },
   },
 });
 
