@@ -35,6 +35,11 @@ export const useStore = defineStore("store", {
     setMenu(val){
       this.menu = val
       localStorage.setItem('menu',JSON.stringify(val))
+    },
+    addMenu(){
+      if(!localStorage.getItem('menu')) return
+      const menu = JSON.parse(localStorage.getItem('menu'))
+      this.menu = menu
     }
   },
 });
